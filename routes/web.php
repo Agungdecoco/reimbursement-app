@@ -48,6 +48,7 @@ Route::middleware(['checkRole:FINANCE,DIREKTUR'])->group(function () {
 
 Route::get('/download/{filename}', [ReimbursementController::class, 'download'])->name('download.document');
 
+Route::get('/', [LoginController::class, 'index'])->name('root-login');
 Route::get('login', [LoginController::class, 'index'])->name('login');
 Route::post('login', [LoginController::class, 'authenticated'])->name('login');
 
