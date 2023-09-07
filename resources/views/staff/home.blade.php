@@ -1,0 +1,68 @@
+@extends('layouts.staff')
+
+@section('content')
+    <div class="title">
+        {{-- <i class="uil uil-clock-three"></i> --}}
+        <span class="text">Daftar Reimbursement</span>
+    </div>
+    <a class="btn btn-primary mb-3" href="{{ route('staff.create') }}" role="button">Tambah Reimbursement</a>
+    <div class="activity-data text-center">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="card">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Tanggal</th>
+                                <th scope="col">Nama Reimbursement</th>
+                                <th scope="col">Deskripsi</th>
+                                <th scope="col">Dokumen</th>
+                                <th scope="col">Nama Staff</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @php
+                                $num = 1;
+                            @endphp
+                            @forelse ($submissions as $submission)
+                                <tr>
+                                    <td scope="row">{{ $num++ }}</td>
+                                    <td>{{ $submission->tanggal }}</td>
+                                    <td>{{ $submission->nama_reimbursement }}</td>
+                                    <td>{{ $submission->deskripsi }}</td>
+                                    <td><a href="{{ route('download.document', ['filename' => $submission->dokumen]) }}"
+                                            target="_blank">Unduh Dokumen</a></td>
+                                    <td>{{ $submission->staff_nip }}</td>
+                                    @if ($submission->status == 0)
+                                        @php
+                                            $status = 'DITOLAK';
+                                        @endphp
+                                    @elseif ($submission->status == 1)
+                                        @php
+                                            $status = 'DIAJUKAN';
+                                        @endphp
+                                    @elseif ($submission->status == 2)
+                                        @php
+                                            $status = 'DILANJUTKAN';
+                                        @endphp
+                                    @elseif ($submission->status == 3)
+                                        @php
+                                            $status = 'DITERIMA';
+                                        @endphp
+                                    @endif
+                                    <td>{{ $status }}</td>
+                                </tr>
+                            @empty
+                                <div class="alert alert-danger">
+                                    Data belum Tersedia.
+                                </div>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
