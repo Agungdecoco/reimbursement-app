@@ -21,10 +21,10 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return $next($request);
+                return redirect('');
             }
         }
 
-        return redirect('/login'); ;
+        return $next($request);
     }
 }

@@ -19,17 +19,17 @@ use App\Http\Controllers\EmployeeController;
 */
 
 Route::middleware(['checkRole:STAFF'])->group(function () {
-    Route::get('/home-staff', [HomeController::class, 'indexStaff'])->name('staff.home');
+    Route::get('/home', [HomeController::class, 'indexStaff'])->name('staff.home');
     Route::get('/form_reimbursement', [ReimbursementController::class, 'create'])->name('staff.create');
     Route::post('/form_reimbursement', [ReimbursementController::class, 'store'])->name('staff.store');
 });
 
 Route::middleware(['checkRole:FINANCE'])->group(function () {
-    Route::get('/home-finance', [HomeController::class, 'indexFinance'])->name('finance.home');
+    Route::get('/home', [HomeController::class, 'indexFinance'])->name('finance.home');
 });
 
 Route::middleware(['checkRole:DIREKTUR'])->group(function () {
-    Route::get('/home-director', [HomeController::class, 'indexDirector'])->name('director.home');
+    Route::get('/home', [HomeController::class, 'indexDirector'])->name('director.home');
 
     Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.index');
 
